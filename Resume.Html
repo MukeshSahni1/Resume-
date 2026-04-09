@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mukesh Sahni — Full Stack Revenue Operator</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --white: #f5f0e8;
+    --accent: #e8ff47;
+    --muted: #888;
+    --border: rgba(245,240,232,0.12);
+    --card: rgba(245,240,232,0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 32px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    letter-spacing: 3px;
+    line-height: 0.9;
+    color: var(--white);
+  }
+
+  .name span {
+    color: var(--accent);
+  }
+
+  .title-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 10px;
+    display: block;
+  }
+
+  .header-right {
+    text-align: right;
+  }
+
+  .contact-line {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 2;
+  }
+
+  .contact-line a {
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .open-badge {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 4px 12px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ── PROFILE ── */
+  .profile {
+    background: var(--card);
+    border-left: 3px solid var(--accent);
+    padding: 20px 24px;
+    margin-bottom: 40px;
+    font-size: 13.5px;
+    color: rgba(245,240,232,0.85);
+    line-height: 1.8;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 40px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .section:nth-child(3) { animation-delay: 0.15s; }
+  .section:nth-child(4) { animation-delay: 0.2s; }
+  .section:nth-child(5) { animation-delay: 0.25s; }
+  .section:nth-child(6) { animation-delay: 0.3s; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+
+  .skill-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .skill-block:hover {
+    border-color: var(--accent);
+    background: rgba(232,255,71,0.04);
+  }
+
+  .skill-cat {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .skill-list {
+    font-size: 12.5px;
+    color: var(--white);
+    font-weight: 400;
+  }
+
+  /* ── ROLE MATCH ── */
+  .role-match {
+    background: rgba(232,255,71,0.06);
+    border: 1px solid rgba(232,255,71,0.25);
+    padding: 20px 24px;
+    margin-bottom: 40px;
+    animation: fadeUp 0.6s 0.12s ease both;
+  }
+
+  .role-match-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .match-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: rgba(245,240,232,0.85);
+  }
+
+  .match-row::before {
+    content: '→';
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .project-card {
+    border: 1px solid var(--border);
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .project-card:hover {
+    border-color: rgba(232,255,71,0.4);
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+    transform: scaleY(0);
+    transition: transform 0.2s;
+    transform-origin: top;
+  }
+
+  .project-card:hover::before {
+    transform: scaleY(1);
+  }
+
+  .project-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: rgba(232,255,71,0.15);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .project-name {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--white);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 12px;
+    color: rgba(245,240,232,0.6);
+    line-height: 1.6;
+  }
+
+  .project-tag {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 2px 8px;
+    background: rgba(232,255,71,0.08);
+    border: 1px solid rgba(232,255,71,0.2);
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  /* ── BOTTOM ── */
+  .bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 40px;
+  }
+
+  .info-block {
+    border: 1px solid var(--border);
+    padding: 18px 20px;
+  }
+
+  .info-block-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .info-item {
+    font-size: 12.5px;
+    color: rgba(245,240,232,0.75);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .info-item::before {
+    content: '·';
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .footer-accent {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: var(--accent);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media print {
+    body { background: white; color: #111; }
+    body::before { display: none; }
+    :root { --white: #111; --black: #fff; --border: #ddd; --card: #f8f8f8; --muted: #666; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div>
+      <div class="name">Mukesh<br><span>Sahni</span></div>
+      <span class="title-tag">Full Stack Revenue Operator · AI Automation Builder</span>
+    </div>
+    <div class="header-right">
+      <div class="contact-line">
+        📧 your@email.com<br>
+        🔗 github.com/mukeshsahni<br>
+        💼 linkedin.com/in/mukeshsahni<br>
+        🌐 portfolio link here
+      </div>
+      <div class="open-badge">Open to Opportunities</div>
+    </div>
+  </header>
+
+  <!-- PROFILE -->
+  <div class="profile">
+    Builder-focused developer specializing in automation, AI agents, and real-world product development. Strong in Python, Node.js, and Firebase — with a focus on creating scalable bots, monetizable tools, and rapid MVPs. I don't just build products; I understand the customer journey, close the gap between a problem and a solution, and take ownership from first contact to long-term success.
+  </div>
+
+  <!-- ROLE FIT -->
+  <div class="role-match">
+    <div class="role-match-title">Why I fit the Full Stack Revenue Operator role</div>
+    <div class="match-row">SDR — I know how to identify a prospect's pain point and lead with the right hook, especially in AI/automation products where I've lived the use cases.</div>
+    <div class="match-row">AE — I can demo and explain complex technical products clearly, having built them myself. I translate capability into business value.</div>
+    <div class="match-row">CS — I've built and maintained bots and platforms end-to-end, so I understand what breaks, what users need, and how to retain them.</div>
+    <div class="match-row">AI Edge — I actively build AI agents. I can sell your product by genuinely understanding it at a technical depth most sales hires can't match.</div>
+  </div>
+
+  <!-- SKILLS -->
+  <section class="section">
+    <div class="section-label">Skills & Stack</div>
+    <div class="skills-grid">
+      <div class="skill-block">
+        <div class="skill-cat">Languages</div>
+        <div class="skill-list">Python, JavaScript (Node.js)</div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-cat">Backend & Tools</div>
+        <div class="skill-list">Firebase, Supabase, n8n, Playwright</div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-cat">Automation</div>
+        <div class="skill-list">Telegram Bots, Web Scraping, Workflow Automation</div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-cat">Frontend</div>
+        <div class="skill-list">React, Tailwind CSS</div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-cat">AI & Agents</div>
+        <div class="skill-list">AI Agent Frameworks, API Integration, Prompt Engineering</div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-cat">Product</div>
+        <div class="skill-list">Rapid Prototyping, MVP Development, Product Thinking</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section">
+    <div class="section-label">Projects</div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-num">01</div>
+        <div class="project-name">Telegram Automation Bots Ecosystem</div>
+        <div class="project-desc">Built multiple bots — video downloaders, AI chat bots — with integrated referral systems and monetization workflows designed for scale.</div>
+        <span class="project-tag">Node.js · Monetization</span>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">02</div>
+        <div class="project-name">Instagram & Facebook Video Downloader</div>
+        <div class="project-desc">High-performance media bots built for viral growth. Backend logic in Node.js, designed for high-volume usage and income generation.</div>
+        <span class="project-tag">Node.js · Growth</span>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">03</div>
+        <div class="project-name">AI Character Chat Bot Platform</div>
+        <div class="project-desc">AI-powered personality bots with unique identities — each profile linked to a conversational AI agent. Engagement-first, entertainment UX.</div>
+        <span class="project-tag">AI Agents · UX</span>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">04</div>
+        <div class="project-name">Instagram Profile Viewer (Playwright)</div>
+        <div class="project-desc">Python + Playwright scraping backend that extracts and serves profile data. Built for integration into web and mobile products.</div>
+        <span class="project-tag">Python · Playwright</span>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">05</div>
+        <div class="project-name">BSE Announcements Alert Bot</div>
+        <div class="project-desc">Real-time stock exchange announcement pipeline via Telegram. Automated BSE data delivery for traders and investors.</div>
+        <span class="project-tag">Node.js · Real-time</span>
+      </div>
+
+      <div class="project-card">
+        <div class="project-num">06</div>
+        <div class="project-name">AI Video Generator (In Progress)</div>
+        <div class="project-desc">System to generate full videos from text prompts. Inspired by automated AI content channels. Focused on scalability and content automation.</div>
+        <span class="project-tag">AI · Automation</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- APPROACH + GOALS -->
+  <div class="bottom-row">
+    <div class="info-block">
+      <div class="info-block-title">Approach</div>
+      <div class="info-item">Real-world, monetizable builds over theory</div>
+      <div class="info-item">Ship fast, iterate on real feedback</div>
+      <div class="info-item">Deep interest in automation, AI agents, and income-generating systems</div>
+      <div class="info-item">Ownership mindset — I take things from idea to live product</div>
+    </div>
+    <div class="info-block">
+      <div class="info-block-title">What I'm Building Toward</div>
+      <div class="info-item">Scalable AI automation products</div>
+      <div class="info-item">Passive income streams via bots and tools</div>
+      <div class="info-item">Production-level SaaS products</div>
+      <div class="info-item">Revenue roles in technical AI/automation companies</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-text">Available for freelance · Collaborations · Full-time roles</div>
+    <div class="footer-accent">MUKESH SAHNI</div>
+  </footer>
+
+</div>
+</body>
+</html>
